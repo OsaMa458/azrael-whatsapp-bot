@@ -1,16 +1,46 @@
 {
-  "name": "azrael-whatsapp-bot",
-  "version": "1.0.0",
-  "description": "WhatsApp Study Bot for VU Students",
-  "main": "azrael.js",
-  "scripts": {
-    "start": "node azrael.js"
+  "owner": "923299132452",
+  "botName": "AZRAEL",
+  "groupName": "VU (ALL SEM) STUDENTS 🤯 💯 ✅",
+  "groupRulesText": "📌 All Subjects Assignment Available\n📌 All Subjects GDB Solution Available\n📌 All Subjects Quiz Available\n📌 Lecture Views Assistance\n🎯 With 80 to 100% Guaranteed Marks\n\nGroup Rules:\n✅ No one, except the admins, can share links.\n✅ Avoid off-topic conversations in the chat.\n✅ Behave respectfully; misbehavior is not allowed.\n✅ Do not send private messages to anyone, whether they are boys or girls, without their permission.\n✅ Share only study-related content like assignments, quizzes, GDBs, and past papers.\n\n📌 Note: If no one is helping you in the group, you can mention or DM the admin for any help regarding study.\n\n📌 WhatsApp Group Link:\nJoin Now\nhttps://chat.whatsapp.com/CnG1SjPQ3SrK3LOnDedjpB\n24/7 CHAT GROUP\nhttps://chat.whatsapp.com/Kn7VK3do6uQEv8NrbWnEbj",
+  
+  "warnLimit": 3,
+  "instantWarnOnLink": true,
+  "instantWarnOnSticker": true,
+  "instantWarnOnMedia": true,
+
+  "whitelist": [],
+
+  "floodControl": {
+    "enabled": true,
+    "maxMessagesPerWindow": 6,
+    "windowSeconds": 10
   },
-  "dependencies": {
-    "@whiskeysockets/baileys": "^6.5.0",
-    "express": "^4.18.2"
+
+  "quietHours": {
+    "enabled": true,
+    "startHourKarachi": 0,
+    "endHourKarachi": 5,
+    "reminderMessage": "🔕 Quiet hours active. Please avoid sending messages."
   },
-  "engines": {
-    "node": ">=16.0.0"
+
+  "dailyTips": [
+    "Check your LMS daily for new announcements and assignments.",
+    "Always submit assignments before the deadline to avoid penalties.",
+    "Form study groups with peers for better understanding of concepts.",
+    "Revise past papers to prepare for quizzes and exams.",
+    "Keep track of your GPA regularly to ensure passing grades."
+  ],
+  "dailyTipIntervalHours": 24,
+
+  "searchSites": [
+    "virtualuni.edu.pk",
+    "vu.edu.pk",
+    "en.wikipedia.org"
+  ],
+
+  "logging": {
+    "enabled": true,
+    "file": "moderation_log.txt"
   }
 }
