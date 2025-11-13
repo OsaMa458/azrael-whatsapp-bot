@@ -9,11 +9,9 @@
   "dependencies": {
     "whatsapp-web.js": "^1.23.0",
     "qrcode-terminal": "^0.12.0",
-    "node-fetch": "^2.6.7",
-    "cheerio": "^1.0.0-rc.12",
     "express": "^4.18.2"
   },
   "engines": {
     "node": ">=16.0.0"
   }
-}
+}s
