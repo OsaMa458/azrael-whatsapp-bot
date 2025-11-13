@@ -15,13 +15,5 @@
   },
   "engines": {
     "node": ">=16.0.0"
-  },
-  "keywords": [
-    "whatsapp",
-    "bot",
-    "study",
-    "vu"
-  ],
-  "author": "VU Students",
-  "license": "MIT"
+  }
 }
