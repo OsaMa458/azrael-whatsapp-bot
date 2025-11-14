@@ -43,7 +43,7 @@ function logEvent(text) {
 }
 
 // Warnings
-async function addWarning(chatId, participantId, reason) {
+async function addWarning(chatId, participantId, reason, sock) {
   if (!warnings[participantId]) warnings[participantId] = { count: 0, lastReason: '' };
   warnings[participantId].count += 1;
   warnings[participantId].lastReason = reason;
@@ -107,7 +107,7 @@ async function connectToWhatsApp() {
       const shouldReconnect = (lastDisconnect.error instanceof Boom)?.output?.statusCode !== DisconnectReason.loggedOut;
       console.log('Connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect);
       if (shouldReconnect) {
-        connectToWhatsApp();
+        setTimeout(connectToWhatsApp, 5000);
       }
     } else if (connection === 'open') {
       console.log(`${BOT_NAME} is ready and online!`);
@@ -140,7 +140,7 @@ async function connectToWhatsApp() {
         const count = recordMessageForFlood(senderId);
         if (count > (cfg.floodControl.maxMessagesPerWindow || 6)) {
           await sock.sendMessage(chatId, { text: '⚠️ Please avoid spamming.' });
-          await addWarning(chatId, senderId, 'Flooding messages');
+          await addWarning(chatId, senderId, 'Flooding messages', sock);
           return;
         }
       }
@@ -162,21 +162,10 @@ async function connectToWhatsApp() {
 
       // Check for links
       const hasLink = /(https?:\/\/|www\.)/i.test(body);
-      const isSticker = !!msg.message.stickerMessage;
-      const hasMedia = !!msg.message.imageMessage || !!msg.message.videoMessage || 
-                       !!msg.message.documentMessage || !!msg.message.audioMessage;
 
       if (!whitelisted && senderId !== OWNER) {
         if (cfg.instantWarnOnLink && hasLink) {
-          await addWarning(chatId, senderId, 'Shared link');
-          return;
-        }
-        if (cfg.instantWarnOnSticker && isSticker) {
-          await addWarning(chatId, senderId, 'Sent sticker');
-          return;
-        }
-        if (cfg.instantWarnOnMedia && hasMedia) {
-          await addWarning(chatId, senderId, 'Shared media');
+          await addWarning(chatId, senderId, 'Shared link', sock);
           return;
         }
       }
@@ -231,7 +220,7 @@ async function connectToWhatsApp() {
         else if (cmd === '!warn' && parts[1]) {
           const target = normNumber(parts[1]);
           const reason = parts.slice(2).join(' ') || 'No reason provided';
-          await addWarning(chatId, target, reason);
+          await addWarning(chatId, target, reason, sock);
         }
         else {
           await sock.sendMessage(chatId, { 
